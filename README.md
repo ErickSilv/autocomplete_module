@@ -4,6 +4,7 @@ Esse projeto de programação implementa um sistema de auto completar.
 
 O objetivo principal é desenvolver um módulo de autocompletar para digitação, com base em um wiktionário.
 
+O projeto se encontra GitHub com o link [Autocompletar](https://github.com/ErickSilv/autocomplete_module).
 
 # O Wiktionário
 
