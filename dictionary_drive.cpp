@@ -1,8 +1,11 @@
+#include <iostream> //cout, cin
+#include <string>	//std::string, strtok, stol
+#include <cstring>	//strtok, strtoul, stol
+#include <fstream>	//open, is_open, eof
+#include <sstream>	//necessary to token (std::getline)
+#include <vector>	//push_back
 
 #include "dictionary.h"
-// Compara duas palavras e retorna 1 se a primeira tiver maior peso que a segunda. 0 caso contrário.
-int getStronger(const void* w1_, const void* w2_);
-
 
 // Drive Application
 int main( int argc, char * argv[] ) 
@@ -27,9 +30,5 @@ int main( int argc, char * argv[] )
     // Imprime as palavras selecionadas
     dictionary.printWords( chosenOnes );
 
-    qsort( &chosenOnes, chosenOnes.size(), sizeof( word ), getStronger );
-
-    dictionary.printWords( chosenOnes );
-
-    return EXIT_SUCCESS;
+    return 0;
 }

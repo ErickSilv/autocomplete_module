@@ -1,10 +1,19 @@
+#include <iostream> //cout, cin
+#include <string>	//std::string, strtok, stol
+#include <cstring>	//strtok, strtoul, stol
+#include <fstream>	//open, is_open, eof
+#include <sstream>	//necessary to token (std::getline)
+#include <vector>	//push_back
+#include <algorithm>//sort
+#include <cstdlib>  //qsort
+
 #include "dictionary.h"
 
 // Carrega as palavras em um dicionário a partir de um arquivo na criação do objeto
-Dictionary::Dictionary( std::string filename ) {
+Dictionary::Dictionary(std::string filename) {
     // Abre o arquivo que contém as palavras
     std::fstream file;
-    file.open( filename.c_str() );
+    file.open( filename );
 
     // Caso a abertura do arquivo seja bem sucedida
     if ( file.is_open() ) 
@@ -50,7 +59,7 @@ Dictionary::Dictionary( std::string filename ) {
         std::cout << ">> Falha na abertura do arquivo... " << std::endl;
     }
 
-}
+};
 
 // Retorna um vetor ordenado por peso de todas as palavras que pertencem ao dicionário e começam com w1
 std::vector<word> Dictionary::getWords(std::string w1) {
@@ -65,11 +74,15 @@ std::vector<word> Dictionary::getWords(std::string w1) {
             chosenOnes.push_back(m_palavras[i]);
     }
 
-    // Inserir algoritmo de ordenação por peso aqui
-    // qsort( chosenOnes, chosenOnes.size(), sizeof(word), getStronger );
+    Comparator comparar_palavras;
+
+    /* Utilizando std::sort com a uma função do tipo Comparator, definido
+     *  no arquivo 'dictionary.h'.
+     */
+    sort( chosenOnes.begin(), chosenOnes.end(), comparar_palavras );
     
     return chosenOnes;
-}
+};
 
 // Imprime as palavras de um vetor de palavras
 void Dictionary::printWords (std::vector<word> words) {
@@ -81,27 +94,9 @@ void Dictionary::printWords (std::vector<word> words) {
         std::cout << words[i].name << std::endl;
     }
 
-}
+};
 
 // Retorna o tamanho do dicionário
 size_t Dictionary::getSize() {
     return m_size;
-}
-
-// Compara duas palavras e retorna 1 se a primeira tiver maior peso que a segunda. 0 caso contrário.
-int getStronger( const void * w1_, const void * w2_) {
-    
-    word * w1 = (word *) w1_;
-    word * w2 = (word *) w2_;
-
-    if ( w1->strength > w2->strength )
-    {
-        return 1;
-    } 
-    else if ( w1->strength < w2->strength )
-    {
-        return -1;
-    }  
-
-    return 0;
 }

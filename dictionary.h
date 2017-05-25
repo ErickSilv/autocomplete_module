@@ -1,18 +1,21 @@
 #ifndef _DICTIONARY_
 #define _DICTIONARY_
 
-#include <iostream> //cout, cin
-#include <string>   //std::string, strtok, stol, strtoul, stol
-#include <cstring>  //strtok
-#include <fstream>  //open, is_open, eof
-#include <sstream>  //necessary to token (std::getline)
-#include <vector>   //push_back
-#include <cstdlib>  //qsort
-
 typedef struct {
     std::string name;
     size_t strength;
 } word;
+
+struct Comparator {
+    bool operator() ( word w1, word w2 ) { 
+        if ( w1.strength > w2.strength )
+            return true;
+        else if ( w1.strength < w2.strength )
+            return false;
+
+        return true;
+    }
+};
 
 class Dictionary 
 {
@@ -28,9 +31,6 @@ class Dictionary
 
         // Retorna o tamanho do dicionário
         size_t getSize();
-
-        // Compara duas palavras e retorna 1 se a primeira tiver maior peso que a segunda. 0 caso contrário.
-        int getStronger(const void* w1_, const void* w2_);
 
     private:
         std::vector<word> m_palavras;
